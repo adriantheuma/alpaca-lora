@@ -49,6 +49,7 @@ def main(
             model,
             lora_weights,
             torch_dtype=torch.float16,
+            force_download=True
         )
     elif device == "mps":
         model = LlamaForCausalLM.from_pretrained(
