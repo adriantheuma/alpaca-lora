@@ -27,33 +27,37 @@ from utils.prompter import Prompter
 
 def train(
     # model/data params
-    base_model: str = "",  # the only required argument
-    data_path: str = "yahma/alpaca-cleaned",
-    output_dir: str = "./lora-alpaca",
+    base_model: str = "decapoda-research/llama-7b-hf",  # the only required argument
+    # data_path: str = "training-data/tatqa_dataset_train_alpaca.json",
+    # data_path: str = "alpaca_data_gpt4.json",
+    data_path: str = "unwilledset/alpaca-training",
+    output_dir: str = "weights",
     # training hyperparams
     batch_size: int = 128,
-    micro_batch_size: int = 4,
-    num_epochs: int = 3,
+    micro_batch_size: int = 8,
+    num_epochs: int = 10,
     learning_rate: float = 3e-4,
-    cutoff_len: int = 256,
+    cutoff_len: int = 512,
     val_set_size: int = 2000,
     # lora hyperparams
-    lora_r: int = 8,
+    lora_r: int = 16,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
     lora_target_modules: List[str] = [
         "q_proj",
+        "k_proj",
         "v_proj",
+        "o_proj"
     ],
     # llm hyperparams
     train_on_inputs: bool = True,  # if False, masks out inputs in loss
     add_eos_token: bool = False,
     group_by_length: bool = False,  # faster, but produces an odd training loss curve
     # wandb params
-    wandb_project: str = "",
+    wandb_project: str = "alpaca-lora-finetune",
     wandb_run_name: str = "",
-    wandb_watch: str = "",  # options: false | gradients | all
-    wandb_log_model: str = "",  # options: false | true
+    wandb_watch: str = "all",  # options: false | gradients | all
+    wandb_log_model: str = "true",  # options: false | true
     resume_from_checkpoint: str = None,  # either training checkpoint or final adapter
     prompt_template_name: str = "alpaca",  # The prompt template to use, will default to alpaca.
 ):
@@ -240,7 +244,7 @@ def train(
             num_train_epochs=num_epochs,
             learning_rate=learning_rate,
             fp16=True,
-            logging_steps=10,
+            logging_steps=5,# was 10
             optim="adamw_torch",
             evaluation_strategy="steps" if val_set_size > 0 else "no",
             save_strategy="steps",

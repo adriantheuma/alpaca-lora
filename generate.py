@@ -24,8 +24,8 @@ except:  # noqa: E722
 
 
 def main(
-    load_8bit: bool = False,
-    base_model: str = "",
+    load_8bit: bool = True,
+    base_model: str = "decapoda-research/llama-7b-hf",
     lora_weights: str = "tloen/alpaca-lora-7b",
     prompt_template: str = "",  # The prompt template to use, will default to alpaca.
     server_name: str = "0.0.0.0",  # Allows to listen on all interfaces by providing '0.
@@ -49,7 +49,8 @@ def main(
             model,
             lora_weights,
             torch_dtype=torch.float16,
-            force_download=True
+            device_map={"": device},
+            force_download=True,
         )
     elif device == "mps":
         model = LlamaForCausalLM.from_pretrained(
