@@ -165,26 +165,31 @@ def main(
         inputs=[
             gr.components.Textbox(
                 lines=2,
-                label="Instruction",
-                placeholder="Tell me about alpacas.",
+                label="Instruction",                
+                placeholder="How is a raven related to wealth?",
             ),
-            gr.components.Textbox(lines=2, label="Input", placeholder="none"),
-            gr.components.Slider(
-                minimum=0, maximum=1, value=0.1, label="Temperature"
-            ),
-            gr.components.Slider(
-                minimum=0, maximum=1, value=0.75, label="Top p"
-            ),
-            gr.components.Slider(
-                minimum=0, maximum=100, step=1, value=40, label="Top k"
+            gr.components.Textbox(
+                lines=2, 
+                label="Input", 
+                info="Provide further context such as a passage.",
+                placeholder="none"
             ),
             gr.components.Slider(
-                minimum=1, maximum=4, step=1, value=4, label="Beams"
+                minimum=0, maximum=1, value=0.1, label="Temperature", info="A hyperparameter that regulates the randomness, or creativity, of the AI's responses. A higher temperature value typically makes the output more diverse and creative but might also increase its likelihood of straying from the context."
             ),
             gr.components.Slider(
-                minimum=1, maximum=2000, step=1, value=128, label="Max tokens"
+                minimum=0, maximum=100, step=1, value=10, label="Top-k", info="Top-k tells the model to pick the next token from the top ‘k’ tokens in its list, sorted by probability."
             ),
-            gr.components.Checkbox(label="Stream output"),
+            gr.components.Slider(
+                minimum=0, maximum=1, value=0.75, label="Top-p", info="Top-p picks from the top-k tokens based on the sum of their probabilities. "
+            ),
+            gr.components.Slider(
+                minimum=1, maximum=4, step=1, value=2, label="Beams", info="The final output is the most probable sequence of tokens found among the k beams."
+            ),
+            gr.components.Slider(
+                minimum=1, maximum=2000, step=1, value=256, label="Max tokens"
+            ),
+            gr.components.Checkbox(label="Stream output", info="Stream the output one token at a time."),
         ],
         outputs=[
             gr.inputs.Textbox(
@@ -192,8 +197,13 @@ def main(
                 label="Output",
             )
         ],
-        title="🦙🌲 Alpaca-LoRA",
-        description="Alpaca-LoRA is a 7B-parameter LLaMA model finetuned to follow instructions. It is trained on the [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) dataset and makes use of the Huggingface LLaMA implementation. For more information, please visit [the project's website](https://github.com/tloen/alpaca-lora).",  # noqa: E501
+        title="📈 Raven 📈",
+        description=
+            "Raven is a 7B-parameter LLaMA model finetuned to follow instructions in the finance domain. \n" \
+            "It is trained on the [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) dataset and several other finance datasets. \n" \
+            "It makes use of the Huggingface LLaMA implementation. \n" \
+            "For more information, please visit [the project's website](https://github.com/adriantheuma/fin-expert).",  
+        cache_examples=True
     ).queue().launch(server_name="0.0.0.0", share=share_gradio)
     # Old testing code follows.
 

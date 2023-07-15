@@ -28,27 +28,31 @@ from utils.prompter import Prompter
 def train(
     # model/data params
     base_model: str = "decapoda-research/llama-7b-hf", 
-    data_path: str = "unwilledset/alpaca-training",
+    data_path: str = "unwilledset/raven-data",
+    data_name: str = "dataset_1",
+    data_split: str = "train",
     output_dir: str = "weights",
     # training hyperparams
     batch_size: int = 128,
-    micro_batch_size: int = 4,
-    num_epochs: int = 2,
+    micro_batch_size: int = 8,
+    num_epochs: int = 5,
     learning_rate: float = 3e-4,
-    cutoff_len: int = 256,
-    val_set_size: int = 3000,
+    cutoff_len: int = 512,
+    val_set_size: int = 2000,
     # lora hyperparams
-    lora_r: int = 8,
+    lora_r: int = 16,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
     lora_target_modules: List[str] = [
         "q_proj",
+        "k_proj",
         "v_proj",
+        "o_proj",
     ],
     # llm hyperparams
     train_on_inputs: bool = True,  # if False, masks out inputs in loss
     add_eos_token: bool = False,
-    group_by_length: bool = False,  # faster, but produces an odd training loss curve
+    group_by_length: bool = True,  # faster, but produces an odd training loss curve
     # wandb params
     wandb_project: str = "",
     wandb_run_name: str = "",
@@ -186,7 +190,7 @@ def train(
     if data_path.endswith(".json") or data_path.endswith(".jsonl"):
         data = load_dataset("json", data_files=data_path)
     else:
-        data = load_dataset(data_path)
+        data = load_dataset(path=data_path, name=data_name, split=data_split)
 
     if resume_from_checkpoint:
         # Check the available weights and load them
@@ -211,7 +215,7 @@ def train(
     model.print_trainable_parameters()  # Be more transparent about the % of trainable params.
 
     if val_set_size > 0:
-        train_val = data["train"].train_test_split(
+        train_val = data.train_test_split(
             test_size=val_set_size, shuffle=True, seed=42
         )
         train_data = (
@@ -244,8 +248,8 @@ def train(
             optim="adamw_torch",
             evaluation_strategy="steps" if val_set_size > 0 else "no",
             save_strategy="steps",
-            eval_steps=200 if val_set_size > 0 else None,
-            save_steps=200,
+            eval_steps=50 if val_set_size > 0 else None,
+            save_steps=50,
             output_dir=output_dir,
             save_total_limit=3,
             load_best_model_at_end=True if val_set_size > 0 else False,
