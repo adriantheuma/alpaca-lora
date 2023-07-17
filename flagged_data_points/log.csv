@@ -1,0 +1,18 @@
+Instruction,Input,Temperature,Top-k,Top-p,Beams,Max tokens,Stream output,Output,flag,username,timestamp
+What is a raven?,,0.1,10,0.75,2,256,True,A raven is a large black bird with a hooked beak and long wings. It is a member of the crow family and is known for its intelligence and ability to mimic human speech. It is also known for its association with death and darkness in mythology and literature.,,,2023-07-16 16:10:40.251637
+What is a raven?,,0.1,10,0.75,2,256,True,A raven is a large black bird with a hooked beak and long wings. It is a member of the crow family and is known for its intelligence and ability to mimic human speech. It is also known for its association with death and darkness in mythology and literature.,,,2023-07-16 16:10:43.379267
+What is a raven?,,0.1,10,0.75,2,256,True,A raven is a large black bird with a hooked beak and long wings. It is a member of the crow family and is known for its intelligence and ability to mimic human speech. It is also known for its association with death and darkness in mythology and literature.,,,2023-07-16 16:10:44.483173
+,,0.1,10,0.75,2,256,True,,,,2023-07-16 16:45:05.430235
+,,0.1,10,0.75,2,256,True,,,,2023-07-16 16:50:01.413158
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:06.889604
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:07.744615
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:07.897494
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:08.099637
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:08.251789
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:08.453343
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:12.224179
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:12.580215
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:12.883645
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:13.185888
+fasdfasd,asdfasdfasdf,0.77,76,0.75,2,256,True,,,,2023-07-16 16:50:13.439776
+,,0.1,10,0.75,2,256,True,,,,2023-07-17 12:19:56.814642
