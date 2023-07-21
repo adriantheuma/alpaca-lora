@@ -26,6 +26,7 @@ def main(
     load_8bit: bool = True,
     base_model: str = "decapoda-research/llama-7b-hf",
     lora_weights: str = "unwilledset/raven-model",
+    # lora_weights: str = "tloen/alpaca-lora",
     lora_weights_version: str = "",
     prompt_template: str = "",  # The prompt template to use, will default to alpaca.
     server_name: str = "0.0.0.0",  # Allows to listen on all interfaces by providing '0.
@@ -255,7 +256,6 @@ def main(
 
     demo.queue().launch(
         server_name="0.0.0.0", 
-        share=False,
         auth=("user", "HJ49AJnXy36kKYTg")
     )
 
