@@ -29,13 +29,13 @@ def train(
     # model/data params
     base_model: str = "decapoda-research/llama-7b-hf", 
     data_path: str = "unwilledset/raven-data",
-    data_name: str = "dataset_1",
+    data_name: str = "dataset-2",
     data_split: str = "train",
     output_dir: str = "weights",
     # training hyperparams
     batch_size: int = 128,
     micro_batch_size: int = 8,
-    num_epochs: int = 5,
+    num_epochs: int = 10,
     learning_rate: float = 3e-4,
     cutoff_len: int = 512,
     val_set_size: int = 2000,
@@ -52,7 +52,7 @@ def train(
     # llm hyperparams
     train_on_inputs: bool = True,  # if False, masks out inputs in loss
     add_eos_token: bool = False,
-    group_by_length: bool = True,  # faster, but produces an odd training loss curve
+    group_by_length: bool = False,  # faster, but produces an odd training loss curve
     # wandb params
     wandb_project: str = "",
     wandb_run_name: str = "",
